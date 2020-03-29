@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/placerholder_block.png-12071d79b5cd039288d7a5929d613c6a.stex"
+path="res://.import/block_movable_all.png-2d6418c6509487381bfb3809c534d4d2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/placerholder_block.png"
-dest_files=[ "res://.import/placerholder_block.png-12071d79b5cd039288d7a5929d613c6a.stex" ]
+source_file="res://assets/sprites/block_movable_all.png"
+dest_files=[ "res://.import/block_movable_all.png-2d6418c6509487381bfb3809c534d4d2.stex" ]
 
 [params]
 

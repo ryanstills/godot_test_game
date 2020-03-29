@@ -11,7 +11,6 @@ func _ready():
 	game_state.current_level = game_state.current_level + 1
 	game_state.level_history.push_front(game_state.current_level)
 	print("Current Level: " + str(game_state.current_level))
-	
 	level_setup(game_state.current_level)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,6 +34,11 @@ func _on_NextLevelButton_pressed():
 # y axis sections 9
 func level_setup(level):
 	
+	$MainMenuButton.disabled = true
+	$NextLevelButton.disabled = true
+	$MainMenuButton.hide()
+	$NextLevelButton.hide()
+	
 	game_state.random_generator.randomize()
 	var sample_map = []
 	var sleep_timer = Timer.new()
@@ -43,15 +47,18 @@ func level_setup(level):
 	sleep_timer.start()
 	
 	for i in range(18 * 9):
-		sample_map.append(game_state.random_generator.randi_range(0,1))
+		sample_map.append(game_state.random_generator.randi_range(0,6))
 	var x_count = 1
 	var y_count = 1
 	
 	for i in sample_map:
 		if i != 0:
 			var block = Block.instance()
+			block.init(i)
 			add_child(block)
 			block.position = Vector2((x_count * game_state.block_size) + 32, (y_count * game_state.block_size) + 32)
+			print(block.position)
+			print(block.block_type)
 			yield(sleep_timer, "timeout")
 		x_count += 1
 		if x_count > 18:
@@ -59,3 +66,8 @@ func level_setup(level):
 			x_count = 1
 	sleep_timer.stop()
 	sleep_timer.queue_free()
+
+	$MainMenuButton.disabled = false
+	$NextLevelButton.disabled = false
+	$MainMenuButton.show()
+	$NextLevelButton.show()
