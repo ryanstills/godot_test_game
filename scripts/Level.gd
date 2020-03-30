@@ -46,8 +46,36 @@ func level_setup(level):
 	add_child(sleep_timer)
 	sleep_timer.start()
 	
+	var movement_block_count = 35
+	var unbreakable_block_count = 25
+	var breakable_block_count = 25
+	var key_count = 5
+	var player_count = 1
+	
 	for i in range(18 * 9):
-		sample_map.append(game_state.random_generator.randi_range(0,6))
+		var num = game_state.random_generator.randi_range(0,9)
+		if num > 0 and num <= 5:
+			if movement_block_count <= 0:
+				num = 0
+			movement_block_count -= 1
+		elif num == 6:
+			if breakable_block_count <= 0:
+				num = 0
+			breakable_block_count -= 1
+		elif num == 7:
+			if unbreakable_block_count <= 0:
+				num = 0
+			unbreakable_block_count -= 1
+		elif num == 8: 
+			if player_count <= 0:
+				num = 0
+			player_count -= 1
+		elif num == 9: 
+			if key_count <= 0:
+				num = 0
+			key_count -= 1
+		sample_map.append(num)
+		
 	var x_count = 1
 	var y_count = 1
 	
