@@ -1,11 +1,11 @@
 extends Node
 
 export (PackedScene) var Block
-export (PackedScene) var Player
 onready var utils = get_node("/root/utils")
 
 # Declare member variables here. Examples:
-var speed = 200
+var speed = 64
+var player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,6 +15,17 @@ func _ready():
 	if game_state.level_files.has(game_state.current_level):
 		var level_content = utils.load_level_file(game_state.level_files[game_state.current_level])
 		level_setup(level_content)
+
+func _process(delta):
+	var player = $Player
+	if Input.is_action_pressed("ui_up"):
+		player.position = Vector2(player.position.x, player.position.y - speed)
+	elif Input.is_action_pressed("ui_down"):
+		player.position = Vector2(player.position.x, player.position.y + speed)
+	elif Input.is_action_pressed("ui_left"):
+		player.position = Vector2(player.position.x - speed, player.position.y)
+	elif Input.is_action_pressed("ui_right"):
+		player.position = Vector2(player.position.x + speed, player.position.y)
 
 func _on_MainMenuButton_pressed():
 	print("Returning to the Main Menu")
@@ -43,9 +54,7 @@ func level_setup(level_content):
 			block.init(level_content[key]["block_type"], level_content[key]["position_x"], level_content[key]["position_y"])
 			add_child(block)
 		elif level_content[key]["block_type"] == 8:
-			var player = Player.instance()
-			player.init(level_content[key]["positon_x"], level_content[key]["position_y"])
-			add_child(player)
+			$Player.position = Vector2(level_content[key]["positon_x"], level_content[key]["position_y"])
 		
 	$MainMenuButton.disabled = false
 	$NextLevelButton.disabled = false

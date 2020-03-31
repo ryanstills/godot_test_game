@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Area2D
 
 export var player_texture = preload("res://icon.png")
 
