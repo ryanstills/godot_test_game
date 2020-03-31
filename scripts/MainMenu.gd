@@ -6,11 +6,6 @@ func _ready():
 	game_state.current_level = 0
 	game_state.level_history.push_front(game_state.current_level)
 	print("Main Menu Script Running")
-	print("Current Level: " + str(game_state.current_level))
-
-#func _process(delta):
-#	pass
-
 
 func _on_StartGameButton_pressed():
 	print("Start Button Pressed")

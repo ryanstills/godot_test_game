@@ -22,6 +22,15 @@ config/icon="res://icon.png"
 [autoload]
 
 game_state="*res://scripts/game_state.gd"
+utils="*res://scripts/utils.gd"
+
+[debug]
+
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unassigned_variable_op_assign=false
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_class_variable=false
+gdscript/warnings/unused_argument=false
 
 [display]
 

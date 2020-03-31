@@ -14,3 +14,7 @@ var MAX_YPOS = 720
 
 # sprite variables
 var block_size = 64
+
+#file information 
+var level_directory = "C:/game_projects/level_creator/levels/"
+var level_files = {}

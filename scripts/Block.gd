@@ -38,6 +38,7 @@ var block_textures = {
 func _ready():
 	pass
 
-func init(type):
-	block_type = block_types[type]
+func init(type, position_x, position_y):
+	block_type = block_types[int(type)]
 	$BlockSprite.set_texture(block_textures[block_type])
+	$".".position = Vector2(position_x + 32, position_y + 32)

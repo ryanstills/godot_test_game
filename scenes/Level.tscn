@@ -1,14 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Block.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/terrain_atlas.png" type="Texture" id=3]
-[ext_resource path="res://assets/base_out_atlas.png" type="Texture" id=4]
-[ext_resource path="res://icon.png" type="Texture" id=5]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/terrain_atlas.png" type="Texture" id=4]
+[ext_resource path="res://assets/base_out_atlas.png" type="Texture" id=5]
 
 [sub_resource type="TileSet" id=1]
 0/name = "terrain_atlas.png 0"
-0/texture = ExtResource( 3 )
+0/texture = ExtResource( 4 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 1024, 864 )
@@ -24,7 +24,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "terrain_atlas.png 1"
-1/texture = ExtResource( 3 )
+1/texture = ExtResource( 4 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 864, 1024, 160 )
@@ -40,7 +40,7 @@
 1/shapes = [  ]
 1/z_index = 0
 2/name = "base_out_atlas.png 2"
-2/texture = ExtResource( 4 )
+2/texture = ExtResource( 5 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, 0, 1024, 1024 )
@@ -58,12 +58,10 @@
 
 [sub_resource type="RectangleShape2D" id=2]
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 15.1027, 30.885 )
-
 [node name="Level" type="Node"]
 script = ExtResource( 1 )
 Block = ExtResource( 2 )
+Player = ExtResource( 3 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -75,7 +73,6 @@ tile_data = PoolIntArray( -65532, 0, 196636, -65531, 0, 196636, -65511, 0, 19663
 position = Vector2( 32, 367 )
 
 [node name="LeftWallCollision" type="CollisionShape2D" parent="LeftWallArea"]
-visible = false
 scale = Vector2( 3.2, 37 )
 shape = SubResource( 2 )
 
@@ -83,7 +80,6 @@ shape = SubResource( 2 )
 position = Vector2( 1248, 367 )
 
 [node name="RightWallCollision" type="CollisionShape2D" parent="RightWallArea"]
-visible = false
 scale = Vector2( 3.2, 37 )
 shape = SubResource( 2 )
 
@@ -91,15 +87,13 @@ shape = SubResource( 2 )
 position = Vector2( 640, 32 )
 
 [node name="TopWallCollision" type="CollisionShape2D" parent="TopWallArea"]
-visible = false
 scale = Vector2( 64, 3.2 )
 shape = SubResource( 2 )
 
 [node name="BottomWallArea" type="Area2D" parent="."]
-position = Vector2( 640, 704 )
+position = Vector2( 640, 672 )
 
 [node name="BottomWallCollision" type="CollisionShape2D" parent="BottomWallArea"]
-visible = false
 scale = Vector2( 64, 3.2 )
 shape = SubResource( 2 )
 
@@ -128,15 +122,5 @@ margin_bottom = 48.0
 text = "Next Level"
 align = 1
 valign = 1
-
-[node name="Player" type="Area2D" parent="."]
-position = Vector2( 96, 96 )
-
-[node name="PlayerSprite" type="Sprite" parent="Player"]
-texture = ExtResource( 5 )
-
-[node name="PlayerCollision" type="CollisionShape2D" parent="Player"]
-scale = Vector2( 2, 1 )
-shape = SubResource( 3 )
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 [connection signal="pressed" from="NextLevelButton" to="." method="_on_NextLevelButton_pressed"]
