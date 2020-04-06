@@ -5,7 +5,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="Area2D" groups=[
+"player",
+]]
 position = Vector2( 32, 32 )
 script = ExtResource( 1 )
 

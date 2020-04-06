@@ -6,9 +6,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 31.7793, 31.5495 )
 
-[node name="Block" type="RigidBody2D"]
+[node name="Block" type="Area2D"]
 position = Vector2( 32, 32 )
-mode = 1
 script = ExtResource( 1 )
 
 [node name="BlockSprite" type="Sprite" parent="."]
