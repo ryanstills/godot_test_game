@@ -174,5 +174,9 @@ text = "180"
 [node name="LevelTimer" type="Timer" parent="TimerBackground"]
 wait_time = 30.0
 one_shot = true
+
+[node name="ChangeToScoreScreenTimer" type="Timer" parent="."]
+wait_time = 4.0
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 [connection signal="pressed" from="NextLevelButton" to="." method="_on_NextLevelButton_pressed"]
+[connection signal="timeout" from="ChangeToScoreScreenTimer" to="." method="_on_ChangeToScoreScreenTimer_timeout"]

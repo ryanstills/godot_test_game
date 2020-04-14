@@ -18,8 +18,11 @@ var moves = [move_up, move_down, move_left, move_right]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	game_state.block_broken = 0
+	game_state.time_left = 0
 	speed = speed
 	key_count = -1
+	
 	game_state.level_state = {}
 	game_state.current_level = game_state.current_level + 1
 	game_state.level_history.push_front(game_state.current_level)
@@ -66,8 +69,10 @@ func _process(delta):
 				process_move(player, prev_position, new_position, move_direction)
 		
 		if key_count == 0:
+			game_state.time_left = $TimerBackground/LevelTimer.time_left
 			$AllKeysCollectedLayer/AllKeysCollected.show()
 			set_process(false)
+			$ChangeToScoreScreenTimer.start()
 
 func _on_MainMenuButton_pressed():
 	print("Returning to the Main Menu")
@@ -81,8 +86,12 @@ func _on_NextLevelButton_pressed():
 	$AllKeysCollectedLayer/AllKeysCollected.hide()
 	get_tree().change_scene("res://scenes/LoadingScreen.tscn")
 
+func _on_ChangeToScoreScreenTimer_timeout():
+	get_tree().change_scene("res://scenes/ScoreScreen.tscn")
+
 func updateTimerText():
 	$TimerBackground/TimerText.set_text(str(round($TimerBackground/LevelTimer.time_left)))
+
 func move_valid(block, move_direction, new_position):
 	var move_valid = false
 	if game_state.in_play_field(new_position):
@@ -90,11 +99,13 @@ func move_valid(block, move_direction, new_position):
 	else:
 		return false
 	
-	if game_state.block_exists_at_position(new_position) and block.is_in_group("player"):		
+	if game_state.block_exists_at_position(new_position) and block.is_in_group("player"):
 		for block in game_state.level_state[String(new_position)]:
 			var result = !block.valid_move_direction.has(move_direction)
 			if result:
 				return false
+			elif block.is_in_group("key"):
+				return true
 			elif move_valid(block, move_direction, block.position + moves[move_direction]):
 				move_valid = true
 			else:
@@ -111,11 +122,11 @@ func move_valid(block, move_direction, new_position):
 func process_move(moving_unit, prev_position, new_position, move_direction):
 	
 	if game_state.block_exists_at_position(new_position) and !game_state.level_state[String(new_position)][0].is_in_group("key"):
-		
 		if game_state.block_exists_at_position(new_position + moves[move_direction]) and !game_state.level_state[String(new_position + moves[move_direction])][0].is_in_group("key") :
 			var breakable_block = game_state.level_state[String(new_position + moves[move_direction])][0]
 			game_state.level_state.erase(String(new_position + moves[move_direction]))
 			breakable_block.queue_free()
+			game_state.block_broken += 1
 		
 		var block = game_state.level_state[String(new_position)][0]
 		block.position = new_position + moves[move_direction]

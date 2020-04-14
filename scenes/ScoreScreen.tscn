@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/ScoreScreen.gd" type="Script" id=1]
+[ext_resource path="res://assets/title_screen.png" type="Texture" id=2]
+
+[node name="ScoreScreen" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 500.0
+margin_top = 140.0
+margin_right = 780.0
+margin_bottom = 620.0
+color = Color( 0.211765, 0.211765, 0.211765, 1 )
+
+[node name="ScoreTitle" type="Label" parent="ColorRect"]
+margin_left = 80.0
+margin_top = 12.0
+margin_right = 120.0
+margin_bottom = 26.0
+rect_scale = Vector2( 3, 3 )
+text = "Score"
+
+[node name="BlocksBrokenLabel" type="Label" parent="ColorRect"]
+margin_left = 10.0
+margin_top = 100.0
+margin_right = 109.0
+margin_bottom = 114.0
+rect_scale = Vector2( 1.7, 1.7 )
+text = "Blocks Broken: "
+
+[node name="TimeLeftLabel" type="Label" parent="ColorRect"]
+margin_left = 10.0
+margin_top = 170.0
+margin_right = 78.0
+margin_bottom = 184.0
+rect_scale = Vector2( 1.7, 1.7 )
+text = "Time Left:"
+
+[node name="TotalScoreLabel" type="Label" parent="ColorRect"]
+margin_left = 10.0
+margin_top = 260.0
+margin_right = 88.0
+margin_bottom = 274.0
+rect_scale = Vector2( 1.7, 1.7 )
+text = "Total Score:"
+
+[node name="ScoreDividingLine" type="Line2D" parent="ColorRect"]
+points = PoolVector2Array( 0, 240, 280, 240 )
+width = 5.0
+default_color = Color( 1, 1, 1, 1 )
+texture_mode = 0
+
+[node name="BlocksBrokenText" type="Label" parent="ColorRect"]
+margin_left = 200.0
+margin_top = 100.0
+margin_right = 240.0
+margin_bottom = 114.0
+rect_scale = Vector2( 1.7, 1.7 )
+text = "0
+"
+align = 2
+
+[node name="TimeLeftText" type="Label" parent="ColorRect"]
+margin_left = 200.0
+margin_top = 170.0
+margin_right = 240.0
+margin_bottom = 184.0
+rect_scale = Vector2( 1.7, 1.7 )
+text = "0
+"
+align = 2
+
+[node name="TotalScoreText" type="Label" parent="ColorRect"]
+margin_left = 200.0
+margin_top = 260.0
+margin_right = 240.0
+margin_bottom = 274.0
+rect_scale = Vector2( 1.7, 1.7 )
+text = "0"
+align = 2

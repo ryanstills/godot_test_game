@@ -20,6 +20,10 @@ var block_size = 64
 var level_directory = "C:/game_projects/level_creator/levels/"
 var level_files = {}
 
+# end of level transition information
+var time_left = 0
+var block_broken = 0
+
 # level information
 var level_state = {}
 
