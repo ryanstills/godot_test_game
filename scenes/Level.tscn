@@ -147,5 +147,32 @@ text = "All Keys Collected
 "
 align = 1
 valign = 1
+
+[node name="TimerBackground" type="ColorRect" parent="."]
+margin_left = 640.0
+margin_top = 8.0
+margin_right = 800.0
+margin_bottom = 54.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="TimerLabel" type="Label" parent="TimerBackground"]
+margin_left = 3.0
+margin_top = 15.0
+margin_right = 110.0
+margin_bottom = 29.0
+rect_scale = Vector2( 1.1, 1.1 )
+text = "Time Remaining:"
+
+[node name="TimerText" type="Label" parent="TimerBackground"]
+margin_left = 122.0
+margin_top = 15.0
+margin_right = 162.0
+margin_bottom = 29.0
+rect_scale = Vector2( 1.2, 1.2 )
+text = "180"
+
+[node name="LevelTimer" type="Timer" parent="TimerBackground"]
+wait_time = 30.0
+one_shot = true
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 [connection signal="pressed" from="NextLevelButton" to="." method="_on_NextLevelButton_pressed"]

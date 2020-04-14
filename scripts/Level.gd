@@ -18,19 +18,22 @@ var moves = [move_up, move_down, move_left, move_right]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	set_process(true)
-	key_count = 0
+	speed = speed
+	key_count = -1
 	game_state.level_state = {}
 	game_state.current_level = game_state.current_level + 1
 	game_state.level_history.push_front(game_state.current_level)
+		
 	if game_state.level_files.has(game_state.current_level):
 		var level_content = utils.load_level_file(game_state.level_files[game_state.current_level])
 		level_setup(level_content)
+	set_process(true)
+	$TimerBackground/LevelTimer.start()
+	
 
 func _process(delta):
 	var player = $Player
-	var move_list = []
-
+	updateTimerText()
 	if movement_time < 0.15:
 		movement_time += delta
 	else:
@@ -62,19 +65,24 @@ func _process(delta):
 			if valid:
 				process_move(player, prev_position, new_position, move_direction)
 		
-		if key_count <= 0:
+		if key_count == 0:
 			$AllKeysCollectedLayer/AllKeysCollected.show()
+			set_process(false)
 
 func _on_MainMenuButton_pressed():
 	print("Returning to the Main Menu")
 # warning-ignore:return_value_discarded
+	$AllKeysCollectedLayer/AllKeysCollected.hide()
 	get_tree().change_scene("res://scenes/MainMenu.tscn")
 
 func _on_NextLevelButton_pressed():
 	print("Going to the next level")
 # warning-ignore:return_value_discarded
+	$AllKeysCollectedLayer/AllKeysCollected.hide()
 	get_tree().change_scene("res://scenes/LoadingScreen.tscn")
 
+func updateTimerText():
+	$TimerBackground/TimerText.set_text(str(round($TimerBackground/LevelTimer.time_left)))
 func move_valid(block, move_direction, new_position):
 	var move_valid = false
 	if game_state.in_play_field(new_position):
@@ -103,10 +111,12 @@ func move_valid(block, move_direction, new_position):
 func process_move(moving_unit, prev_position, new_position, move_direction):
 	
 	if game_state.block_exists_at_position(new_position) and !game_state.level_state[String(new_position)][0].is_in_group("key"):
+		
 		if game_state.block_exists_at_position(new_position + moves[move_direction]) and !game_state.level_state[String(new_position + moves[move_direction])][0].is_in_group("key") :
 			var breakable_block = game_state.level_state[String(new_position + moves[move_direction])][0]
 			game_state.level_state.erase(String(new_position + moves[move_direction]))
 			breakable_block.queue_free()
+		
 		var block = game_state.level_state[String(new_position)][0]
 		block.position = new_position + moves[move_direction]
 		game_state.update_level_state(new_position, new_position + moves[move_direction], block)
@@ -135,7 +145,7 @@ func level_setup(level_content):
 	$MainMenuButton.hide()
 	$NextLevelButton.hide()
 	
-	var count = 1
+	var count = 0
 	for i in range(1, level_content.keys().size()):
 		var key = str(i)
 		var block = null
@@ -187,14 +197,14 @@ func level_setup(level_content):
 			game_state.level_state[String($Player.position)] = [$Player]
 		# sets up keys
 		elif level_content[key]["block_type"] == 9:
-			key_count = key_count + 1
+			count = count + 1
 			block = Block.instance()
 			block.init(level_content[key]["block_type"], level_content[key]["position_x"], level_content[key]["position_y"])
 			add_child(block)
-		
 		if block != null:
 			game_state.level_state[String(block.position)] = [block]
-		
+	key_count = count
+	
 	$MainMenuButton.disabled = false
 	$NextLevelButton.disabled = false
 	$MainMenuButton.show()
