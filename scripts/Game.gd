@@ -7,6 +7,7 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_level_lists()
+	print(game_state.level_files)
 	game_state.window_size = get_viewport().size
 	game_state.MAX_XPOS = game_state.window_size.x - 96
 	game_state.MAX_YPOS = game_state.window_size.y - 80
@@ -26,6 +27,7 @@ func get_level_lists():
 		if file == '':
 			break
 		elif not file.begins_with("."):
+			print(file)
 			files[count] = file
 			count += 1
 	dir.list_dir_end()
