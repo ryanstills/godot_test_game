@@ -17,7 +17,7 @@ var MAX_YPOS = 720
 var block_size = 64
 
 # file information 
-var level_directory = "D:/godot/puzzle_game/godot_test_game/assets/levels/"
+var level_directory = "res://levels/"
 var level_files = {}
 
 # end of level transition information

@@ -2,6 +2,7 @@ extends Node
 
 func load_level_file(file_name):
 		print("Filename: " + file_name)
+		print(game_state.level_directory + file_name)
 		var contents = {}
 		var file = File.new()
 		file.open(game_state.level_directory + file_name, File.READ)

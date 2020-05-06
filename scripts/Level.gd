@@ -157,6 +157,7 @@ func level_setup(level_content):
 	$NextLevelButton.hide()
 	
 	var count = 0
+	print(level_content)
 	for i in range(1, level_content.keys().size()):
 		var key = str(i)
 		var block = null
