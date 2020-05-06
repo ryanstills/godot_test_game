@@ -29,6 +29,7 @@ utils="*res://scripts/utils.gd"
 gdscript/warnings/unassigned_variable=false
 gdscript/warnings/unassigned_variable_op_assign=false
 gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_class_variable=false
 gdscript/warnings/unused_argument=false
 
 [display]
