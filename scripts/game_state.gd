@@ -17,7 +17,7 @@ var MAX_YPOS = 720
 var block_size = 64
 
 # file information 
-var level_directory = "res://levels/"
+var level_directory = "C:/game_projects/test_game/levels/"
 var level_files = {}
 
 # end of level transition information

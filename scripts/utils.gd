@@ -9,4 +9,5 @@ func load_level_file(file_name):
 		var string_contents = file.get_as_text()
 		contents = parse_json(string_contents)
 		file.close()
+		print(contents)
 		return contents

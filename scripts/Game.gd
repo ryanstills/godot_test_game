@@ -20,13 +20,14 @@ func get_level_lists():
 	var files = {}
 	var count = 0
 	var dir = Directory.new()
-	print(game_state.level_directory)
+	dir.open(game_state.level_directory)
 	dir.list_dir_begin()
 	while true:
 		var file = dir.get_next()
 		if file == '':
 			break
 		elif not file.begins_with("."):
+			print(file)
 			files[count] = file
 			count += 1
 	dir.list_dir_end()
