@@ -24,7 +24,12 @@ func _ready():
 	key_count = -1
 	
 	game_state.level_state = {}
-	game_state.current_level = game_state.current_level + 1
+	if game_state.current_level < (len(game_state.level_files.keys()) - 1):
+		game_state.current_level = game_state.current_level + 1
+	else:
+		print("Last level completed")
+		game_state.current_level = 1
+		get_tree().change_scene("res://scenes/MainMenu.tscn")
 	game_state.level_history.push_front(game_state.current_level)
 		
 	if game_state.level_files.has(game_state.current_level):
